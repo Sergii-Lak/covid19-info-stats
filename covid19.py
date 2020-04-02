@@ -80,6 +80,3 @@ class Global_info():
 
 if __name__ == "__main__":
     covid19 = Global_info()
-
-
-    covid19.info_country('Panama')
