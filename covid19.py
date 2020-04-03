@@ -15,7 +15,7 @@ class Global_info():
             'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv')
 
         self.date_update = datetime.date(datetime.now() - timedelta(days=1))
-        self.date_avant = datetime.date(datetime.now())
+        self.date_now = datetime.date(datetime.now())
 
         self.recovered = 0
         self.death = 0
@@ -23,7 +23,9 @@ class Global_info():
 
     # --------------------------------------------------------------
 
-    #country = 'Germany'
+    def country_infected_list(self):
+        dispo_country_list = list(set(list_countries_dispo(self.confirmed_global)))
+        return sorted(dispo_country_list)
 
 
     def info_country(self, country):
@@ -38,7 +40,7 @@ class Global_info():
             print()
             print('--------------------COVID-19 statistic----------------------')
             print()
-            print('Contry: {} / Last update: {}'.format(country, self.date_update))
+            print('Contry: {} / Last update: {}'.format(country, self.date_now))
             print()
             print('TOTAL population in {} no informations or this is cruise ship'.format(country))
             print('Recovered: {}'.format(recovered_final))
@@ -56,7 +58,7 @@ class Global_info():
             print()
             print('--------------------COVID-19 statistic----------------------')
             print()
-            print('Contry: {} / Last update: {}'.format(country, self.date_update))
+            print('Contry: {} / Last update: {}'.format(country, self.date_now))
             print()
             print('TOTAL population in {}: {}'.format(country, pop))
             print('Recovered: {}'.format(recovered_final))
