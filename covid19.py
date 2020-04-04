@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 import pandas as pd
 from aditional_f import *
+import numpy as np
+
+np.seterr(divide='ignore', invalid='ignore')  # for ignor this: '--RuntimeWarning: invalid value encountered in longlong_scalars--'
 
 class Global_info():
     # ------------------------------------
@@ -27,20 +30,24 @@ class Global_info():
         dispo_country_list = list(set(list_countries_dispo(self.confirmed_global)))
         return sorted(dispo_country_list)
 
+    def date_valid_list(self):
+        return dates_dispo_list(self.confirmed_global)
 
-    def info_country(self, country):
+    def info_country(self, country, date):
         dispo_country_list = list_countries_dispo(self.confirmed_global)
         no_dispo_country_list = list_boat_counrties_NO_dispo_population_info(self.countries_population, self.confirmed_global)
+        dates_list = dates_dispo_list(self.confirmed_global)
 
-        if country in no_dispo_country_list:
-            confirmed_final = info_confirmed(self.confirmed_global, self.confirmed, country)
-            death_final = info_confirmed(self.deaths_global, self.death, country)
-            recovered_final = info_confirmed(self.recovered_global, self.recovered, country)
+        if country in no_dispo_country_list and date in dates_list:
+            confirmed_final = info_confirmed(self.confirmed_global, self.confirmed, country, date)
+            death_final = info_confirmed(self.deaths_global, self.death, country, date)
+            recovered_final = info_confirmed(self.recovered_global, self.recovered, country, date)
+
 
             print()
             print('--------------------COVID-19 statistic----------------------')
             print()
-            print('Contry: {} / Last update: {}'.format(country, self.date_now))
+            print('Contry: {} / In this date: {}'.format(country, date))
             print()
             print('TOTAL population in {} no informations or this is cruise ship'.format(country))
             print('Recovered: {}'.format(recovered_final))
@@ -48,35 +55,41 @@ class Global_info():
             print('Death: {}'.format(death_final))
             print('Existing: {}'.format((confirmed_final - (recovered_final + death_final))))
 
-        elif country in dispo_country_list:
+        elif country in dispo_country_list and date in dates_list:
             pop = (counry_pop_search(country, self.countries_population))
 
-            confirmed_final = info_confirmed(self.confirmed_global, self.confirmed, country)
-            death_final = info_confirmed(self.deaths_global, self.death, country)
-            recovered_final = info_confirmed(self.recovered_global, self.recovered, country)
+            confirmed_final = info_confirmed(self.confirmed_global, self.confirmed, country, date)
+            death_final = info_confirmed(self.deaths_global, self.death, country, date)
+            recovered_final = info_confirmed(self.recovered_global, self.recovered, country, date)
 
             print()
             print('--------------------COVID-19 statistic----------------------')
             print()
-            print('Contry: {} / Last update: {}'.format(country, self.date_now))
+            print('Contry: {} / For this date: {}'.format(country, date))
             print()
             print('TOTAL population in {}: {}'.format(country, pop))
             print('Recovered: {}'.format(recovered_final))
             print('Confirmed: {}'.format(confirmed_final))
             print('Death: {}'.format(death_final))
             print('Existing: {}'.format((confirmed_final - (recovered_final + death_final))))
-            print('Percentage infected and confirmed of total population: {}%'.format(
+            print('The percentage infected and confirmed of total population: {}%'.format(
                 percent_infected_in_counrie(confirmed_final, pop)))
-            print('Percentage of deaths among infected people: {}%'.format(('%g' % (float(
+            print('The percentage of deaths among infected people: {}%'.format(('%g' % (float(
                 percent_infected_in_counrie(death_final,
                                             confirmed_final))))))  # rounding -  '%g'%(number) - removes all zeros after decimal point
-            print('Percentage of recovered among infected people: {}%'.format(
+            print('The percentage of recovered among infected people: {}%'.format(
                 ('%g' % (float(percent_infected_in_counrie(recovered_final, confirmed_final))))))
-            print('Percentage of existing among infected people: {}%'.format(('%g' % (
+            print('The percentage of existing among infected people: {}%'.format(('%g' % (
                 float(percent_infected_in_counrie((confirmed_final - (recovered_final + death_final)),
                                                   confirmed_final))))))
+        elif country in dispo_country_list or country in no_dispo_country_list and date not in dates_list:
+            print('Date not valid!!!')
+        elif country not in dispo_country_list or country not in no_dispo_country_list and date in dates_list:
+            print('There is no such country!!!')
         else:
-            print('There is no such country, or you made a syntax error!!!!')
+            print('You made a syntax error!!!!')
+
+        print(start_date_infection_country(self.confirmed_global, country))
 
         # -----------------------------------------
 

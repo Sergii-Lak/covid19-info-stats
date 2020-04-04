@@ -29,15 +29,39 @@ def list_countries_dispo(confirmed_global):
     return countries_dispo
 
 
-def info_confirmed(df_info, result, country):
+def info_confirmed(df_info, result, country, date):
     for i in range(0, checking_max(df_info)):
         if df_info.loc[i][1] == country:
-            result += df_info.loc[i][-1]
+            result += df_info.loc[i][date]
     return result
 
 def percent_infected_in_counrie(number_infected_confirmed, population):
-    percent_infected = format(((number_infected_confirmed / population) * 100), '.10f') #rounding, 10 numbers after decimal point
-    if percent_infected == 0:
+    if number_infected_confirmed == 0:
         return 0
     else:
-        return percent_infected
+        percent_infected = format(((number_infected_confirmed / population) * 100), '.10f')  # rounding, 10 numbers after decimal point
+        if percent_infected == 0:
+            return 0
+        else:
+            return percent_infected
+
+
+def dates_dispo_list(df):
+    return list(df.columns[4:len(df.columns)])
+
+
+def start_date_infection_country(confirmed_global, country):
+    list_countrys = list_countries_dispo(confirmed_global)
+    res = ''
+    data_searche_country = confirmed_global['Country/Region'] == country
+    data_country = confirmed_global[data_searche_country]
+    for i in list(data_country.columns[4:len(data_country.columns)]):
+        if country not in list_countrys:
+            res = 'There is no such country or you made a syntax error!!!!'
+        if country == 'China':
+            res = 'End of December 2019...'
+            break
+        elif sum(data_country[i]) > 0:
+            res = 'Date when the virus started spreading in {} is: {}'.format(country, i)
+            break
+    return res
