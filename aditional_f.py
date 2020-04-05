@@ -1,4 +1,4 @@
-
+import pandas as pd
 
 def checking_max(a):
     return a.shape[0]
@@ -58,10 +58,31 @@ def start_date_infection_country(confirmed_global, country):
     for i in list(data_country.columns[4:len(data_country.columns)]):
         if country not in list_countrys:
             res = 'There is no such country or you made a syntax error!!!!'
-        if country == 'China':
+        elif country == 'China':
             res = 'End of December 2019...'
             break
         elif sum(data_country[i]) > 0:
             res = 'Date when the virus started spreading in {} is: {}'.format(country, i)
             break
     return res
+
+def date_data_dict(date, dispo_country_list, confirmed_global):
+    date_info_dict = {}
+    for country in list(set(dispo_country_list)):
+        data_searche_country = confirmed_global['Country/Region'] == country
+        data_country = confirmed_global[data_searche_country]
+        date_column = sum(data_country[date])
+        date_info_dict[country]= int(date_column)
+    return date_info_dict
+
+def aii_dataframe(date, dispo_country_list, confirmed_global, deaths_global, recovered_global):
+    res = {}
+    confirmed = date_data_dict(date, dispo_country_list, confirmed_global).values()
+    death = date_data_dict(date, dispo_country_list, deaths_global).values()
+    recovered = date_data_dict(date, dispo_country_list, recovered_global).values()
+    countryes = date_data_dict(date, dispo_country_list, confirmed_global).keys()
+    res['Country'] = list(countryes)
+    res['Confirmed'] = list(confirmed)
+    res['Death'] = list(death)
+    res['Recovered'] = list(recovered)
+    return pd.DataFrame(res).sort_values('Country')
