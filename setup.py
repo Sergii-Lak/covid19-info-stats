@@ -5,6 +5,7 @@ setup(
     version='0.1.1',
     packages=['covid19-info-stats'],    
     url='https://github.com/Sergii-Lak/covid19-info-stats',
+    package_dir={'': 'C/Users/bcollins/UHD_PY/uhd/host/build/python'}
     license='MIT',
     author='Sergii-Lak',
     install_requires=["pandas", "numpy"],
