@@ -3,8 +3,7 @@ from setuptools import setup
 setup(
     name='covid19-info-stats',
     version='0.1.1',
-    packages=['covid19-info-stats'],
-    package_dir={'':'vertica_ml_python'}
+    packages=['covid19-info-stats'],    
     url='https://github.com/Sergii-Lak/covid19-info-stats',
     license='MIT',
     author='Sergii-Lak',
