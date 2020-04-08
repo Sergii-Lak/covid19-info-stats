@@ -151,9 +151,3 @@ class Global_info():
 if __name__ == "__main__":
     covid19 = Global_info()
 
-    covid19.info_countrys('Canada', '4/6/20')
-
-    a = covid19.date_data_death_dict('4/6/20')
-    print(a)
-    print(a['US'])
-    print(covid19.all_data_death())
