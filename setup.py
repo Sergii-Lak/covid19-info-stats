@@ -1,8 +1,8 @@
 from setuptools import setup
 
 setup(
-    name='covid19-info-stats',
-    version='0.1.1',
+    name='covid19-full-stat',
+    version='0.0.1',
     packages=['covid19-info-stats'],    
     url='https://github.com/Sergii-Lak/covid19-info-stats',
     package_dir={'': 'C:\\Users\Serg\PycharmProjects\covid19-info-stats\\'},
