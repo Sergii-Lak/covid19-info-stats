@@ -7,7 +7,7 @@ np.seterr(divide='ignore', invalid='ignore')  # for ignor this: '--RuntimeWarnin
 class Global_info():
     # ------------------------------------
     def __init__(self):
-        self.countries_population = pd.read_csv('./covid19_stat/data_population.csv')
+        self.countries_population = pd.read_csv('https://raw.githubusercontent.com/Sergii-Lak/covid19-info-stats/master/covid19_stat/data_population.csv')
 
         self.confirmed_global = pd.read_csv(
             'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
@@ -150,4 +150,3 @@ class Global_info():
 
 if __name__ == "__main__":
     covid19 = Global_info()
-
