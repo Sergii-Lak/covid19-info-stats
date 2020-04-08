@@ -5,7 +5,7 @@ setup(
     version='0.0.1',
     packages=['covid19-full-stat'],
     url='https://github.com/Sergii-Lak/covid19-info-stats',
-    package_dir={'': 'C:\\Users\Serg\PycharmProjects\covid19-info-stats\\'},
+    package_dir={'': 'C:\\Users\Serg\PycharmProjects\covid19-full-stat\\'},
     license='MIT',
     author='Sergii-Lak',
     install_requires=["pandas", "numpy"],
