@@ -1,10 +1,10 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='covid19-full-stat',
-    version='0.0.2.1',
+    version='0.0.2.3',
+    packages=find_packages(),
     url='https://github.com/Sergii-Lak/covid19-info-stats',
-    package_dir={'': 'C:\\Users\Serg\PycharmProjects\covid19-info-stats'},
     license='MIT',
     author='Sergii-Lak',
     install_requires=["pandas", "numpy"],
