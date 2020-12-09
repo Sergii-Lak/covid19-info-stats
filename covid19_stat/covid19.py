@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from covid19_stat.aditional_f import *
+from aditional_f import *
 import numpy as np
 
 np.seterr(divide='ignore', invalid='ignore')  # for ignor this: '--RuntimeWarning: invalid value encountered in longlong_scalars--'
@@ -149,4 +149,57 @@ class Global_info():
         # -----------------------------------------
 
 if __name__ == "__main__":
-    covid19 = Global_info()
+    covid19 = Global_info()    
+    triger = 0
+    while triger != 1:
+        print("""Your chois:
+                  1  covid19.info_country('Canada', '4/11/20')
+                  2  covid19.country_infected_list()
+                  3  covid19.date_valid_list()
+                  4  covid19.all_data_confirmed()
+                  5  covid19.all_data_death()
+                  6  covid19.all_data_recovered()
+                  7  covid19.date_data_confirmed_dict('3/22/20')
+                  8  covid19.date_data_death_dict('4/5/20')
+                  9  covid19.date_data_recovered_dict('4/5/20')
+                  10 covid19.all_data_in_date('2/12/20')
+                  11 covid19.new_case_date_info('3/9/20')
+                  12 Exit
+                """)
+        res_f = input('Number:')        
+        if int(res_f) == 1:
+            count_1 = input('Country:')
+            date_1 = input('Date:')
+            covid19.info_countrys(count_1, date_1)
+        elif int(res_f) == 2:
+            print(covid19.country_infected_list())
+        elif int(res_f) == 3:
+            print(covid19.date_valid_list())
+        elif int(res_f) == 4:
+            print(covid19.all_data_confirmed())
+        elif int(res_f) == 5:
+            print(covid19.all_data_death())
+        elif int(res_f) == 6:
+            print(covid19.all_data_recovered())
+        elif int(res_f) == 7:
+            date_1 = input('Date:')
+            print(covid19.date_data_confirmed_dict(date_1))
+        elif int(res_f) == 8:
+            date_1 = input('Date:')
+            print(covid19.date_data_death_dict(date_1))
+        elif int(res_f) == 9:
+            date_1 = input('Date:')
+            print(covid19.date_data_recovered_dict(date_1))
+        elif int(res_f) == 10:
+            date_1 = input('Date:')
+            print(covid19.all_data_in_date(date_1))
+        elif int(res_f) == 11:
+            date_1 = input('Date:')
+            print(covid19.new_case_date_info(date_1))
+        elif int(res_f) == 12:
+            triger = 1
+            print('Bonne journé!')
+        else:
+            print("Error")
+            triger = 1
+            print('Bonne journé!')
